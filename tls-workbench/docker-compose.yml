@@ -1,0 +1,34 @@
+version: "3.9"
+# Production stack: PostgreSQL persists certificate metadata, deployment
+# plans and node receipts. Private keys never enter this system.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tls_workbench
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  server:
+    build: ./server
+    environment:
+      DB_TYPE: postgres
+      DATABASE_URL: postgres://postgres:postgres@db:5432/tls_workbench
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

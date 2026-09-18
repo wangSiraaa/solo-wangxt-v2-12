@@ -1,0 +1,21 @@
+{
+  "name": "tls-workbench",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "server",
+    "web",
+    "simulator"
+  ],
+  "scripts": {
+    "dev:server": "npm run start:dev --workspace=server",
+    "dev:web": "npm run dev --workspace=web",
+    "build:web": "npm run build --workspace=web",
+    "test": "npm run test --workspace=server",
+    "seed": "tsx scripts/seed.ts",
+    "simulator": "tsx simulator/src/index.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0"
+  }
+}
