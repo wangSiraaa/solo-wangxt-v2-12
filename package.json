@@ -1,0 +1,12 @@
+{
+  "name": "tls-cert-rotation-workbench",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev:pg": "cd backend && npm run dev:pg",
+    "dev:api": "cd backend && npm start",
+    "dev:web": "cd frontend && npm run dev",
+    "gen:samples": "cd backend && npm run gen:samples"
+  }
+}
